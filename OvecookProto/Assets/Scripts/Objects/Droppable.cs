@@ -11,10 +11,10 @@ public class Droppable : MonoBehaviour
     // SET LE BON ALIMENT
     void Start()
     {
-        GameObject tempObject = Resources.Load("Tranches/" + currentLegume.ToString()) as GameObject;
-        inGameObject = Instantiate(tempObject);
-        tempObject.transform.parent = transform;
+        GameObject tempObject = Resources.Load("Droppables/" + currentLegume.ToString()) as GameObject;
+        inGameObject = Instantiate(tempObject, transform);
         tempObject.transform.localPosition = Vector3.zero;
+        name = currentLegume.ToString();
     }
 
     

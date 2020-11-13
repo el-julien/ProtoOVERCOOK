@@ -15,10 +15,11 @@ public class Cuttable : MonoBehaviour
     {
         if (usedObject.currentLegume != Droppable.ObjectType.Assiette)
         {
-            GameObject tempCut = Resources.Load("Cuttables/" + usedObject.currentLegume.ToString() + "_tranche") as GameObject;
+            GameObject tempCut = Resources.Load("Tranches/" + usedObject.currentLegume.ToString()) as GameObject;
             Destroy(usedObject.inGameObject);
             usedObject.inGameObject = Instantiate(tempCut);
             usedObject.inGameObject.transform.parent = transform;
+            usedObject.inGameObject.transform.localPosition = Vector3.zero;
 
         }
     }

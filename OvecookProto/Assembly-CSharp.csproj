@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Objects\Cuttable.cs" />
     <Compile Include="Assets\Scripts\Objects\Droppable.cs" />
     <Compile Include="Assets\Scripts\Player\CharacterBehaviours.cs" />
+    <Compile Include="Assets\TestCut.cs" />
     <Reference Include="UnityEngine">
       <HintPath>E:/Unity/2019.4.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
