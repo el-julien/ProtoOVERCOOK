@@ -19,8 +19,13 @@ public class FoodPopZone : MonoBehaviour
   public void OnInteraction()
   {
     GameObject avatar = GameObject.FindGameObjectWithTag("Player");
-    GameObject resource = GameObject.Instantiate(popResource);
-    resource.transform.SetParent(avatar.transform);
-    resource.transform.localPosition = Vector3.forward;
+    // does avatar has food in hands ?
+    //Droppable droppable = avatar.GetComponentInChildren<Droppable>();
+    //if(droppable == null)
+    {
+      GameObject resource = GameObject.Instantiate(popResource);
+      resource.transform.SetParent(avatar.transform);
+      resource.transform.localPosition = Vector3.forward;
+    }
   }
 }
