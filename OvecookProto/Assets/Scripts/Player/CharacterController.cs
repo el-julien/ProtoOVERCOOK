@@ -58,4 +58,18 @@ public class CharacterController : MonoBehaviour
     {
         
     }
+
+    void PlayerMovement()
+    {
+        if (isGrounded)
+        {
+            float moveVertical = Input.GetAxis("Vertical");
+            float moveHorizontal = Input.GetAxis("Horizontal");
+
+            Vector3 movement = new Vector3(moveHorizontal,0,moveVertical).normalized;
+
+            float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + cam.gameObject.transform.eulerAngles.y;
+
+        }
+    }
 }
