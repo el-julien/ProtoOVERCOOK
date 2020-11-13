@@ -21,6 +21,6 @@ public class FoodPopZone : MonoBehaviour
     GameObject avatar = GameObject.FindGameObjectWithTag("Player");
     GameObject resource = GameObject.Instantiate(popResource);
     resource.transform.SetParent(avatar.transform);
-    resource.transform.position = Vector3.forward;
+    resource.transform.localPosition = Vector3.forward;
   }
 }
