@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+public class CharacterBehaviours : MonoBehaviour
 {
     [SerializeField] private GameManager m_GameManager;
 
@@ -13,7 +13,7 @@ public class CharacterController : MonoBehaviour
 
     [Space]
     [Header("Player Component")]
-    [SerializeField] private CharacterController characterController;
+    [SerializeField] private CharacterController m_Controller;
     [SerializeField] private Camera cam;
 
     [Space]
@@ -49,27 +49,46 @@ public class CharacterController : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        characterController = GetComponent<CharacterController>();
+        m_Controller = GetComponent<CharacterController>();
         groundCheck = transform.GetChild(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isGrounded)
+        {
+            PlayerMovement();
+        }
     }
 
     void PlayerMovement()
     {
-        if (isGrounded)
+
+        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxis("Horizontal");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical).normalized;
+
+        float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + cam.gameObject.transform.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnShmoothVelocity, turnShmoothTime);
+
+        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+
+        Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        m_Controller.Move(moveDirection.normalized * speedMouvement * Time.deltaTime);
+
+        velocity.y += gravity * Time.deltaTime;
+        m_Controller.Move(velocity * Time.deltaTime);
+    }
+
+
+    private void PhysicsCheck()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (isGrounded && velocity.y < 0)
         {
-            float moveVertical = Input.GetAxis("Vertical");
-            float moveHorizontal = Input.GetAxis("Horizontal");
-
-            Vector3 movement = new Vector3(moveHorizontal,0,moveVertical).normalized;
-
-            float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + cam.gameObject.transform.eulerAngles.y;
-
+            velocity.y = -1.5f;
         }
     }
 }
